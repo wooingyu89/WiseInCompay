@@ -28,7 +28,7 @@ def main():
     
     st.title(":speech_balloon: Wise InCompany chatbot[:blue[Beta]]")
 
-    df = pd.read_csv('data.xlsx')
+    df = pd.read_csv('data.csv')
 
 
     if "conversation" not in st.session_state:
