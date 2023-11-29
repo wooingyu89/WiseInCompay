@@ -24,7 +24,7 @@ def main():
     page_title="DirChat",
     page_icon=":books:")
 
-    st.title("_Private Data :red[QA Chat]_ :books:")
+    st.title(":speech_balloon: _Wise _In _compaby chatbot")
 
     if "conversation" not in st.session_state:
         st.session_state.conversation = None
@@ -52,7 +52,7 @@ def main():
         st.session_state.processComplete = True
 
     if 'messages' not in st.session_state:
-        st.session_state['messages'] = [{"role":"product recommender",
+        st.session_state['messages'] = [{"role":"assistant",
                                         "Content":"안녕하세요! 추천받을 상품 정보를 입력해주세요"}]
     for message in st.session_state.messages:
         with st.chat_message(message["role"]):
