@@ -31,13 +31,8 @@ def main():
         st.session_state.conversation = None
 
     if "chat_history" not in st.session_state:
-        st.session_state.chat_history = None\
+        st.session_state.chat_history = None
     
-    with st.sidebar:
-        uploaded_files =  st.file_uploader("Upload your file",type=['pdf','docx'],accept_multiple_files=True)
-        openai_api_key = st.text_input("OpenAI API Key", key="chatbot_api_key", type="password")
-        process = st.button("Process")
-
     if 'messages' not in st.session_state:
         st.session_state['messages'] = [{"role": "product recommender", 
                                         "content": "안녕하세요! 원하시는 상품정보를 알려주세요."}]
