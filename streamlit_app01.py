@@ -52,8 +52,9 @@ def main():
         st.session_state.processComplete = True
 
     if 'messages' not in st.session_state:
-        st.session_state['messages'] = [{"role":"product recommender",
-                                        "Content":"안녕하세요! 추천받을 상품 정보를 입력해주세요"}]
+        st.session_state['messages'] = [{"role": "assistant", 
+                                        "content": "안녕하세요! 주어진 문서에 대해 궁금하신 것이 있으면 언제든 물어봐주세요!"}]
+
     for message in st.session_state.messages:
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
@@ -61,7 +62,7 @@ def main():
     history = StreamlitChatMessageHistory(key="chat_messages")
 
     # Chat logic
-    if query := st.chat_input("원하시는 조건을 말씀해주세요."):
+    if query := st.chat_input("질문을 입력해주세요."):
         st.session_state.messages.append({"role": "user", "content": query})
 
         with st.chat_message("user"):
