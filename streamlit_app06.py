@@ -3,9 +3,7 @@ import tiktoken
 from loguru import logger
 
 from langchain.chains import ConversationalRetrievalChain
-from langchain.agents import create_pandas_dataframe_agent
 from langchain.chat_models import ChatOpenAI
-from langchain.agents.agent_types import AgentType
 
 from langchain.document_loaders import PyPDFLoader
 from langchain.document_loaders import Docx2txtLoader
@@ -20,8 +18,8 @@ from langchain.vectorstores import FAISS
 # from streamlit_chat import message
 from langchain.callbacks import get_openai_callback
 from langchain.memory import StreamlitChatMessageHistory
+from langchain_experimental.agents.agent_toolkits import create_csv_agent
 import os
-import pandas as pd
 
 def main():
     st.set_page_config(
@@ -30,6 +28,12 @@ def main():
     
     st.title(":speech_balloon: Wise InCompany chatbot[:blue[Beta]]")
 
+    agent = create_csv_agent(
+    OpenAI(temperature=0),
+    "data.xlsx",
+    verbose=True,
+    agent_type=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
+    )
 
     if "conversation" not in st.session_state:
         st.session_state.conversation = None
