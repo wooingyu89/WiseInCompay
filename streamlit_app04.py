@@ -28,7 +28,7 @@ def main():
 
 
 
-    files_text = get_text(uploaded_files)
+    files_text = "수정필요"
     text_chunks = get_text_chunks(files_text)
     vetorestore = get_vectorstore(text_chunks)
      
