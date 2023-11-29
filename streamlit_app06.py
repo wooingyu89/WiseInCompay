@@ -18,7 +18,6 @@ from langchain.vectorstores import FAISS
 # from streamlit_chat import message
 from langchain.callbacks import get_openai_callback
 from langchain.memory import StreamlitChatMessageHistory
-from langchain_experimental.agents.agent_toolkits import create_csv_agent
 import os
 
 def main():
@@ -28,12 +27,6 @@ def main():
     
     st.title(":speech_balloon: Wise InCompany chatbot[:blue[Beta]]")
 
-    agent = create_csv_agent(
-    OpenAI(temperature=0),
-    "data.xlsx",
-    verbose=True,
-    agent_type=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
-    )
 
     if "conversation" not in st.session_state:
         st.session_state.conversation = None
