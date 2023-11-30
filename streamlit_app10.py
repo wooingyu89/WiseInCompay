@@ -21,6 +21,7 @@ from langchain.memory import StreamlitChatMessageHistory
 import os
 import pandas as pd
 from langchain_experimental.agents.agent_toolkits import create_csv_agent
+from langchain.agents import create_pandas_dataframe_agent
 
 def main():
     st.set_page_config(
