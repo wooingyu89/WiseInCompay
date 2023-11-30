@@ -31,9 +31,6 @@ def main():
     
     st.title(":speech_balloon: Wise InCompany chatbot[:blue[Beta]]")
 
-
-    os.environ["OPENAI_API_KEY"] = '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'
-
     #Load Data with LangChain CSVLoader
     loaders=CSVLoader('data.csv', encoding='utf-8')
     docs=loaders.load()
@@ -80,8 +77,6 @@ def main():
                 
                 st.markdown(response)
                     
-
-
 # Add assistant message to chat history
         st.session_state.messages.append({"role": "product recommender", "content": response})
 
