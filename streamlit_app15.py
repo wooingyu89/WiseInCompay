@@ -38,10 +38,6 @@ def main():
     docs=loaders.load()
     # Load the Data
     data=docs
-    #Split the Text into Chunks
-    text_chunks = get_text_chunks(docs)
-    #Create a Vector Store
-    vectorstore=get_vector_store(text_chunks)
     
     
     if "conversation" not in st.session_state:
