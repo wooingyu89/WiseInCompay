@@ -31,6 +31,10 @@ def main():
     
     st.title(":speech_balloon: Wise InCompany chatbot[:blue[Beta]]")
 
+    df = pd.read_csv('data.csv')
+
+    st.write(df)
+    
     #Load Data with LangChain CSVLoader
     loaders=CSVLoader('data.csv', encoding='utf-8')
     docs=loaders.load()
