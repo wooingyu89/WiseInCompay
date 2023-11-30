@@ -74,7 +74,9 @@ def main():
             chain = st.session_state.conversation
 
             with st.spinner("Thinking..."):
-                st.markdown("0000")
+                result = chain({"question": query})
+                response = result['answer']
+                st.markdown(response)
                     
 
 
