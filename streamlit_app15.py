@@ -38,6 +38,8 @@ def main():
     docs=loaders.load()
     # Load the Data
     data=docs
+    #Split the Text into Chunks
+    text_chunks = get_text_chunks(docs)
     
     
     if "conversation" not in st.session_state:
@@ -81,7 +83,7 @@ def main():
 
 #Prepare data for embedding
 def get_text_chunks(docs):
-    text_splitter=CharacterTextSplitter(separator="\n", chunk_size=1000, chunk_overlap=200, length_function=len)
+    text_splitter=CharacterTextSplitter(separator=",", chunk_size=1000, chunk_overlap=200, length_function=len)
     text_chunks=text_splitter.split_documents(docs)
     return text_chunks
 
