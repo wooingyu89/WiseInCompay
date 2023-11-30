@@ -36,6 +36,9 @@ def main():
     #Load Data with LangChain CSVLoader
     loaders=CSVLoader('data.csv', encoding='utf-8')
     docs=loaders.load()
+    #Set OpenAI API Key
+    openai_key = st.secrets["openai"]["openai_api_key"]
+    os.environ["OPENAI_API_KEY"] = st.secrets["openai"]["openai_api_key"]
     # Load the Data
     data=docs
     #Split the Text into Chunks
