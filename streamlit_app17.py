@@ -92,8 +92,8 @@ def get_text_chunks(docs):
 #Embed the data in FAISS
 def get_vector_store(text_chunks):
     embeddings=OpenAIEmbeddings()
-    vectorstore=FAISS.from_documents(text_chunks, embeddings)
-    return vectorstore
+    
+    return embeddings
 
 #Create a Conversation Chain
 def get_conversation_chain(vectorstore):
