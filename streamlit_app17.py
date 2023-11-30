@@ -94,8 +94,11 @@ def get_text_chunks(docs):
 
 #Embed the data in FAISS
 def get_vector_store(text_chunks):
-    embeddings=OpenAIEmbeddings()
-    vectorstore=FAISS.from_documents(text_chunks, embeddings)
+    embeddings=HuggingFaceEmbeddings(model_name="jhgan/ko-sroberta-multitask",
+                                     model_kwargs={'device': 'cpu'},
+                                     encode_kwargs={'normalize_embeddings': True}
+                                    )  
+    vectordb = FAISS.from_documents(text_chunks, embeddings)
     return embeddings
 
 #Create a Conversation Chain
