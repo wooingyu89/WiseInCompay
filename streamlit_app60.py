@@ -8,12 +8,19 @@ from langchain.chains import ConversationalRetrievalChain
 
 def main() :
     
+    def load_llm():
+        llm = CTransformers(model="llama-2-7b-chat.ggmlv3.q8_0.bin",
+                            model_type="llama",
+                            max_new_tokens=512,
+                            temperature=0.5
+                        )
+        return llm
+
     st.set_page_config(
     page_title="WinC Chat",
     page_icon=":speech_balloon:")
     
     st.title(":speech_balloon: Wise InCompany chatbot[:blue[Beta]]")
-
     filePath="data.csv"
     DB_FAISS_PATH = "vectorstor/db_faiss"
 
