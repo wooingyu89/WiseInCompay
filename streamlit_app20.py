@@ -39,7 +39,7 @@ def main():
     
     llm=ChatOpenAI(temperature=0.0)
 
-    agent=create_csv_agent(lim,filePath)
+    agent=create_csv_agent(llm,filePath)
 
 
     if "conversation" not in st.session_state:
