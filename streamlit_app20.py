@@ -1,0 +1,98 @@
+import streamlit as st
+import tiktoken
+from loguru import logger
+
+from langchain.chains import ConversationalRetrievalChain
+from langchain.chat_models import ChatOpenAI
+
+from langchain.document_loaders import PyPDFLoader
+from langchain.document_loaders import Docx2txtLoader
+from langchain.document_loaders import UnstructuredPowerPointLoader
+
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain.embeddings import HuggingFaceEmbeddings
+
+from langchain.memory import ConversationBufferMemory
+from langchain.vectorstores import FAISS
+
+# from streamlit_chat import message
+from langchain.callbacks import get_openai_callback
+from langchain.memory import StreamlitChatMessageHistory
+import os
+import pandas as pd
+from langchain.document_loaders import CSVLoader
+from langchain.text_splitter import CharacterTextSplitter
+from langchain.embeddings import OpenAIEmbeddings
+from langchain_experimental.agents.agent_toolkits import create_csv_agent
+
+def main():
+    st.set_page_config(
+    page_title="WinC Chat",
+    page_icon=":speech_balloon:")
+    
+    st.title(":speech_balloon: Wise InCompany chatbot[:blue[Beta]]")
+
+    openai_key = st.secrets["openai"]["openai_api_key"]
+    os.environ["OPENAI_API_KEY"] = st.secrets["openai"]["openai_api_key"]
+
+    df=pd.read_csv('train.csv')
+    
+    llm=ChatOpenAI(temperature=0.0)
+
+    agent=create_csv_agent(lim,filePath)
+
+
+    if "conversation" not in st.session_state:
+        st.session_state.conversation = None
+
+    if "chat_history" not in st.session_state:
+        st.session_state.chat_history = None\
+    
+    if 'messages' not in st.session_state:
+        st.session_state['messages'] = [{"role": "assistant", 
+                                        "content": "안녕하세요! 원하시는 상품정보를 알려주세요."}]
+
+    for message in st.session_state.messages:
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
+
+    history = StreamlitChatMessageHistory(key="chat_messages")
+
+    # Chat logic
+    if query := st.chat_input("질문을 입력해주세요."):
+        st.session_state.messages.append({"role": "user", "content": query})
+
+        with st.chat_message("user"):
+            st.markdown(query)
+
+        with st.chat_message("assistant"):
+            with st.spinner("Thinking..."):
+                result = agent.run('나이가 15세 이하인 승객중 1,2등급에 탑승한 남자 승객의 생존율은 어떻게 돼? %로 알려줘')
+                st.markdown(result)
+                    
+
+
+# Add assistant message to chat history
+        st.session_state.messages.append({"role": "product recommender", "content": response})
+
+#Prepare data for embedding
+def get_text_chunks(docs):
+    text_splitter=CharacterTextSplitter(separator="\n", chunk_size=1000, chunk_overlap=200, length_function=len)
+    text_chunks=text_splitter.split_documents(docs)
+    return text_chunks
+
+#Embed the data in FAISS
+def get_vector_store(text_chunks):
+    embeddings= OpenAIEmbeddings()
+    vectordb = FAISS.from_documents(text_chunks, embeddings)
+    return embeddings
+
+#Create a Conversation Chain
+def get_conversation_chain(vectorstore):
+    llm=ChatOpenAI(temperature=0.0)
+    memory=ConversationBufferMemory(memory_key='chat_history', return_messages=True)
+    conversation_chain=ConversationalRetrievalChain.from_llm(llm=llm, retriever=vectorstore.as_retriever(), memory=memory)
+    return conversation_chain
+
+if __name__ == '__main__':
+    main()
