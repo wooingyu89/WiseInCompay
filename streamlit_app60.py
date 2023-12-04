@@ -5,17 +5,10 @@ from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.vectorstores import FAISS
 from langchain.llms import CTransformers
 from langchain.chains import ConversationalRetrievalChain
+from langchain.chat_models import ChatOpenAI
 
 def main() :
     
-    def load_llm():
-        llm = CTransformers(model="llama-2-7b-chat.ggmlv3.q8_0.bin",
-                            model_type="llama",
-                            max_new_tokens=512,
-                            temperature=0.5
-                        )
-        return llm
-
     st.set_page_config(
     page_title="WinC Chat",
     page_icon=":speech_balloon:")
@@ -34,7 +27,8 @@ def main() :
                                          model_kwargs={'device':'cpu'})
         db=FAISS.from_documents(data,embeddings)
         db.save_local(DB_FAISS_PATH)
-        llm=load_llm()
+        llm = ChatOpenAI(openai_api_key=openai_api_key, model_name = 'gpt-3.5-turbo',temperature=0)
+    
         chain=ConversationalRetrievalChain.from_llm(llm=llm,
                                                     retriever=db.as_retriever())
         
