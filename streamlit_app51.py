@@ -34,7 +34,7 @@ def main() :
         st.session_state.messages.append({"role": "user", "content": query})
 
         with st.chat_message("assistant"):
-            response = agent.run(query)
+            response = agent.run(query + "관련 해서 3가지 상품명과 URL을 보여줘")
             st.write(response)
     
 if __name__ == '__main__':
