@@ -1,9 +1,7 @@
 import streamlit as st
 
 from langchain_experimental.agents.agent_toolkits import create_csv_agent
-from langchain.agents.agent_types import AgentType
 from langchain import OpenAI
-from dotenv import load_dotenv
 
 def main() :
 
@@ -16,19 +14,23 @@ def main() :
     filePath="data.csv"
 
     if filePath is not None:
-        user_quesion = st.text_input("상품 검색어 :")
-
-        llm=OpenAI(temperature=0,
-                   model='gpt-4-0613')
+        llm=OpenAI(temperature=0)
         agent=create_csv_agent(llm,
                                filePath,
                                verbose=True,
-                               agent_type=AgentType.OPENAI_FUNCTIONS,
                                )
 
-        if user_quesion is not None and user_quesion !="":
-            response = agent.run(user_quesion)
-            st.write(response)
+    if "conversation" not in st.session_state:
+        st.session_state.conversation = None
 
+    if "chat_history" not in st.session_state:
+        st.session_state.chat_history = None
+    
+    if 'messages' not in st.session_state:
+        st.session_state['messages'] = [{"role": "assistant", 
+                                        "content": "안녕하세요! 원하시는 상품정보를 알려주세요."}]
+
+
+    
 if __name__ == '__main__':
     main()
