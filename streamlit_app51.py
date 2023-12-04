@@ -34,7 +34,7 @@ def main() :
         st.session_state.messages.append({"role": "user", "content": query})
 
         with st.chat_message("assistant"):
-            response = agent.run({"question": query})
+            response = agent.run(query)
             st.write(response)
     
 if __name__ == '__main__':
