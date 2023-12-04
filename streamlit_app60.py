@@ -3,7 +3,6 @@ from streamlit_chat import message
 from langchain.document_loaders.csv_loader import CSVLoader
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.vectorstores import FAISS
-from langchain.llms import CTransformers
 from langchain.chains import ConversationalRetrievalChain
 from langchain.chat_models import ChatOpenAI
 
@@ -27,7 +26,7 @@ def main() :
                                          model_kwargs={'device':'cpu'})
         db=FAISS.from_documents(data,embeddings)
         db.save_local(DB_FAISS_PATH)
-        llm = ChatOpenAI(openai_api_key=openai_api_key, model_name = 'gpt-3.5-turbo',temperature=0)
+        llm = ChatOpenAI(model_name = 'gpt-3.5-turbo',temperature=0)
     
         chain=ConversationalRetrievalChain.from_llm(llm=llm,
                                                     retriever=db.as_retriever())
