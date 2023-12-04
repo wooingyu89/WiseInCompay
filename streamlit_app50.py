@@ -12,6 +12,8 @@ def main() :
     
     st.title(":speech_balloon: Wise InCompany chatbot[:blue[Beta]]")
 
+    openai_key = st.secrets["openai"]["openai_api_key"]
+    
     csv_file = st.file_uploader('train.csv', type='csv')
 
     if csv_file is not None:
