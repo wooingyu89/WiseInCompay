@@ -37,7 +37,7 @@ def main() :
             return result["answer"]
         
         if 'history' not in st.session_state:
-            st.session_stae['history']=[]
+            st.session_state['history']=[]
         
         if 'generated' not in st.session_state:
             st.session_state['generated']=["원하시는상품정보를 알려주세요"]
