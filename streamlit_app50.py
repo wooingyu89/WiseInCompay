@@ -11,9 +11,7 @@ def main() :
     page_icon=":speech_balloon:")
     
     st.title(":speech_balloon: Wise InCompany chatbot[:blue[Beta]]")
-
-    openai_key = st.secrets["openai"]["openai_api_key"]
-
+    
     filePath="data.csv"
 
     if filePath is not None:
