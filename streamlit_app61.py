@@ -9,11 +9,11 @@ from langchain.chat_models import ChatOpenAI
 def main() :
     
     st.set_page_config(
-    page_title="WinC Chat",
+    page_title="쳇기프트",
     page_icon=":speech_balloon:")
     
-    st.title(":speech_balloon: Wise InCompany chatbot[:blue[Beta]]")
-    filePath="data.csv"
+    st.title(":speech_balloon: 챗기프트 chatbot")
+    filePath="product01.csv"
     DB_FAISS_PATH = "vectorstor/db_faiss"
 
     if filePath is not None:
@@ -40,10 +40,10 @@ def main() :
             st.session_state['history']=[]
         
         if 'generated' not in st.session_state:
-            st.session_state['generated']=["원하시는상품정보를 알려주세요"]
+            st.session_state['generated']=["원하시는상품정보를 입력해주시면 상품을 추천해 드립니다."]
         
         if 'past' not in st.session_state:
-            st.session_state['past']=["TT!!!!"]
+            st.session_state['past']=["안녕하세요."]
 
         response_container = st.container()
 
