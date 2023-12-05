@@ -41,6 +41,9 @@ def main() :
         if 'generated' not in st.session_state:
             st.session_state['generated']=["원하시는상품정보를 입력해주시면 상품을 추천해 드립니다."]
 
+        if 'past' not in st.session_state:
+            st.session_state['past']=[]
+            
         response_container = st.container()
 
         container=st.container()
