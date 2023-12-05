@@ -41,7 +41,9 @@ def main():
 
     filePath="product01.csv"
     
-    loader = CSVLoader(file_name)
+    loader = CSVLoader(file_path=filePath,encoding='utf-8',csv_args={
+            'delimiter':','
+        } )
     documents = loader.load_and_split()
 
     doc_list.extend(documents)
