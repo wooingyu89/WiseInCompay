@@ -9,11 +9,11 @@ from langchain.chat_models import ChatOpenAI
 def main() :
     
     st.set_page_config(
-    page_title="챗기프트",
+    page_title="WinC Chat",
     page_icon=":speech_balloon:")
     
-    st.title(":speech_balloon: 챗기프트")
-    filePath="product01.csv"
+    st.title(":speech_balloon: Wise InCompany chatbot[:blue[Beta]]")
+    filePath="data.csv"
     DB_FAISS_PATH = "vectorstor/db_faiss"
 
     if filePath is not None:
@@ -21,6 +21,7 @@ def main() :
             'delimiter':','
         } )
         data=loader.load()
+        
         embeddings=HuggingFaceEmbeddings(model_name='sentence-transformers/all-MiniLM-L6-v2',
                                          model_kwargs={'device':'cpu'})
         db=FAISS.from_documents(data,embeddings)
@@ -39,11 +40,11 @@ def main() :
             st.session_state['history']=[]
         
         if 'generated' not in st.session_state:
-            st.session_state['generated']=["원하시는상품정보를 입력해주시면 상품을 추천해 드립니다."]
-
+            st.session_state['generated']=["원하시는상품정보를 알려주세요"]
+        
         if 'past' not in st.session_state:
-            st.session_state['past']=['안녕하세요']
-            
+            st.session_state['past']=["TT!!!!"]
+
         response_container = st.container()
 
         container=st.container()
@@ -62,7 +63,8 @@ def main() :
         if st.session_state['generated']:
             with response_container:
                 for i in range(len(st.session_state['generated'])):
-                    message(st.session_state['past'][i], is_user=True, key=str(i)+'_user',  avatar_style='thumbs')
+                    message(st.session_state['past'][i], is_user=True, key=str(i)+'_user',
+                            avatar_style='big-smile')
                     message(st.session_state['generated'][i], is_user=True, key=str(i),  avatar_style='thumbs')
             
 if __name__ == '__main__':
