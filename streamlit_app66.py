@@ -38,7 +38,7 @@ def main():
         st.session_state.processComplete = None
         
     doc_list = []
-    file_name = os.join('/tmp', 'product01.pdf')
+    file_name = os.path.join('/tmp', 'product01.pdf')
 
     loader = PyPDFLoader(file_name)
     documents = loader.load_and_split()
