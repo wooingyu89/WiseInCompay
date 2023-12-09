@@ -133,7 +133,7 @@ def get_vectorstore(text_chunks):
     return vectordb
 
 def get_conversation_chain(vetorestore):
-    llm = ChatOpenAI(model_name = 'gpt-3.5-turbo',temperature=0)
+    llm = ChatOpenAI(openai_api_key, model_name = 'gpt-3.5-turbo',temperature=0)
     conversation_chain = ConversationalRetrievalChain.from_llm(
             llm=llm, 
             chain_type="stuff", 
