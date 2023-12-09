@@ -19,6 +19,8 @@ from langchain.vectorstores import FAISS
 from langchain.callbacks import get_openai_callback
 from langchain.memory import StreamlitChatMessageHistory
 
+import os
+
 def main():
     st.set_page_config(
     page_title="DirChat",
@@ -36,7 +38,7 @@ def main():
         st.session_state.processComplete = None
         
     doc_list = []
-    file_name = product01.pdf
+    file_name = os.join('/tmp', 'product01.pdf')
 
     loader = PyPDFLoader(file_name)
     documents = loader.load_and_split()
