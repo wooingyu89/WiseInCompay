@@ -40,7 +40,7 @@ def main():
     doc_list = []
     file_name = os.path.join('/tmp', 'product01.pdf')
 
-    loader = PyPDFLoader(file_name)
+    loader = PyPDFLoader('product01.pdf')
     documents = loader.load_and_split()
     doc_list.extend(documents)
 
